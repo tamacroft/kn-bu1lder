@@ -1,4 +1,4 @@
-name: Build Android
+name: Build Android Prod
 on: push
 jobs:
   building-android:
