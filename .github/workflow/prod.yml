@@ -1,0 +1,31 @@
+name: Build Android
+on: push
+jobs:
+  building-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: semarangplaza/kunoid-app
+          token: ${{ secrets.GH_TOKEN }}
+          ref: production
+      - name: setup keystore
+        run: |
+          echo "${{ secrets.KEYSTORE }}" > kuno.keystore.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch kuno.keystore.asc > android/app/kuno.keystore
+      - name: install dependencies
+        run: |
+          yarn install
+      - name: build AAB
+        env:
+          BASE_URL: ${{secrets.BASE_URL_PROD}}
+          HOST: ${{ secrets.HOST_PROD }}
+          DESIGN_WIDTH: ${{ secrets.DESIGN_WIDTH }}
+          DOMAIN: ${{ secrets.DOMAIN_PROD }}
+        run: |
+          yarn build:aab
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: kuno.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
