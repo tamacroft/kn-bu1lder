@@ -11,8 +11,8 @@ jobs:
           ref: production
       - name: setup keystore
         run: |
-          echo "${{ secrets.KEYSTORE }}" > kuno.keystore.asc
-          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch kuno.keystore.asc > android/app/kuno.keystore
+          echo "${{ secrets.KEYSTORE }}" > kunoid.keystore.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch kunoid.keystore.asc > android/app/kunoid.keystore
       - name: install dependencies
         run: |
           yarn install
