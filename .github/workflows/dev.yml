@@ -1,6 +1,6 @@
-name: Build Kuno Android Dev
+name: build android app development
 
-on: [push]
+on: workflow_dispatch
 
 jobs:
   building-android:

@@ -1,5 +1,7 @@
-name: Build Android Prod
-on: push
+name: build android app production
+
+on: workflow_dispatch
+
 jobs:
   building-android:
     runs-on: ubuntu-latest
